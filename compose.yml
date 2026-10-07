@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: doc-service-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: doc_service
+      POSTGRES_USER: doc_service
+      POSTGRES_PASSWORD: doc_service
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+volumes:
+  postgres_data:
