@@ -18,8 +18,9 @@ services:
     container_name: doc-service-backend
     restart: unless-stopped
     environment:
-      APPLICATION_ENV: development
-      LOG_LEVEL: INFO
+      APPLICATION_ENV: ${APPLICATION_ENV:-development}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:3000}
       DATABASE_URL: postgresql+psycopg://doc_service:doc_service@postgres:5432/doc_service
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
       AI_API_KEY: ${AI_API_KEY}
@@ -33,7 +34,7 @@ services:
     build:
       context: ./frontend
       args:
-        NEXT_PUBLIC_API_URL: http://localhost:8000
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
     container_name: doc-service-frontend
     restart: unless-stopped
     ports:
